@@ -10,8 +10,7 @@
   ],
   "require"    : {
     "php": ">=5.4",
-    "silverstripe/cms"    : "~3.2",
-    "unclecheese/dropzone": "1.2.*"
+    "silverstripe/cms"    : "~3.*"
   },
   "license"    : "MIT",
   "authors"    : [
