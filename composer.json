@@ -10,7 +10,7 @@
   ],
   "require"    : {
     "php": ">=5.4",
-    "silverstripe/cms"    : "~3.*"
+    "silverstripe/cms"    : "3.6.*"
   },
   "license"    : "MIT",
   "authors"    : [
