@@ -43,6 +43,7 @@ class FileAttachmentFieldSortingExtension extends DataExtension {
     public function onBeforeRender(FileAttachmentField $field) {
 
         if ($field->getSetting('sortable') && $this->owner->isCMS()) {
+            
             $field->setSetting('sortable-action', $field->Link('sort'));
             $field->setSetting('sort-column', $this->getSortableColumn());
             $field->addExtraClass('is-sortable');
@@ -66,8 +67,6 @@ class FileAttachmentFieldSortingExtension extends DataExtension {
      */
     public function sort(SS_HTTPRequest $request) {
         $controller = Controller::curr();
-
-        //die(json_encode($request->allParams()));
 
         // Check if a new position is given
         $newPosition = $request->getVar('newPosition');

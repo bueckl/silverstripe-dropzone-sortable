@@ -1,11 +1,11 @@
 ;(function ($) {
     $(function () {
         $.entwine('ss', function ($) {
-            $(".fileattachment.is-sortable").entwine({
+            $(".fileattachment").entwine({
                 onmatch  : function () {
                     // enable sorting functionality
                     var self      = $(this);
-                    var container = $('ul', this);
+                    var container = $('.file-attachment-field-previews').parent();
                     var settings  = $('.dropzone-holder', this).data('config');
 
                     // Get the action URL template (only thing that will change is the file ID).
