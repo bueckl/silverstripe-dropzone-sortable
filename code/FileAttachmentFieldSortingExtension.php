@@ -65,13 +65,17 @@ class FileAttachmentFieldSortingExtension extends DataExtension {
      *
      * @param SS_HTTPRequest $request
      */
+
     public function sort(SS_HTTPRequest $request) {
         $controller = Controller::curr();
-
+        //Requirements::clear();
+        
         // Check if a new position is given
         $newPosition = $request->getVar('newPosition');
         $oldPosition = $request->getVar('oldPosition');
+        //// Actually this is not a file ID but an ImmoImage ID
         $fileID      = $request->shift();
+        
         if ($newPosition === "") {
             $controller->httpError(403);
         }
@@ -80,18 +84,24 @@ class FileAttachmentFieldSortingExtension extends DataExtension {
             $controller->httpError(403);
         }
         // Check item permissions
-        $itemMoved = DataObject::get_by_id('File', $fileID);
+        $itemMoved = DataObject::get_by_id('ImmoImage', $fileID);
+
         if (!$itemMoved) {
             $controller->httpError(404);
         }
+
         if (!$itemMoved->canEdit()) {
             $controller->httpError(403);
         }
+
         // Only allow actions on files in the managed relation (if one exists)
         $sortColumn   = $this->getSortableColumn();
         $relationName = $this->owner->getName();
         $record       = $this->owner->getRecord();
+        
+        
         if ($record && $record->hasMethod($relationName)) {
+            
             /** @var HasManyList|ManyManyList $list */
             $list           = $record->$relationName();
             $list           = $list->sort($sortColumn, 'ASC');
@@ -102,7 +112,10 @@ class FileAttachmentFieldSortingExtension extends DataExtension {
             $oldPosition    = intval($oldPosition);
             $arrayList      = $list->toArray();
             $itemIsInList   = false;
+
+
             foreach ($arrayList as $item) {
+
                 /** @var File $item */
                 if ($item->ID == $itemMoved->ID) {
                     $sort = $newPosition;
@@ -142,8 +155,7 @@ class FileAttachmentFieldSortingExtension extends DataExtension {
                 }
             }
             Requirements::clear();
-
-            return "1";
+            return;
         }
         $controller->httpError(403);
     }

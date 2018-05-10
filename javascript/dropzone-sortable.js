@@ -46,7 +46,7 @@
                         }
                     });
                     container.find('.find-icon').first().click();
-                    console.log('clicking on find icon');
+                    // console.log('clicking on find icon');
                     this._super();
                 },
                 onunmatch: function () {
